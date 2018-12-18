@@ -1,0 +1,107 @@
+//
+//  FirsrViewController.swift
+//  Hello World
+//
+//  Created by student on 2018/10/20.
+//  Copyright © 2018年 201611028. All rights reserved.
+//
+
+import UIKit
+
+class FirsrViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //创建标签
+        let label = UILabel(frame:CGRect(x:200,y:80,width:300,height:150))
+        label.text = "Hello World! "
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.black
+        label.textColor = UIColor.white
+        label.center = view.center
+        view.addSubview(label)
+        //创建按钮
+        let button = UIButton(frame:CGRect(x:150,y:460,width:100,height:40))
+        button.setTitle("click me", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.backgroundColor = UIColor.gray
+        view.addSubview(button)
+        //添加事件响应
+        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+    }
+    @IBAction func buttonClicked(){
+        if let label = view.subviews.first as? UILabel {
+            label.text = "I was clicked! "
+            label.textColor = UIColor.yellow
+            label.backgroundColor = UIColor.red
+            present(SexondViewController(),animated: true,completion: nil)
+        }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+
+}
+
+import UIKit
+
+class SexondViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        let shape1 = myView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
+        view.addSubview(shape1)
+        
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+
+
+}
+
+import UIKit
+
+class myView: UIView{
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath()
+        let firstpath = UIBezierPath(rect: rect)
+        //创建一个UIBezierPath变量，UIBezierPath可创建基于矢量的路径，常用来绘图
+        UIColor.red.setStroke()  //红色边界
+        firstpath.stroke()   //将视图边界弄成红色
+        firstpath.fill()//将TrangleView将视图填充为黄色
+        
+        
+        //画三角形
+        path.move(to: CGPoint(x:rect.size.width/2,y:0))
+        path.addLine(to: CGPoint(x:rect.size.width,y:rect.size.height))
+        path.addLine(to: CGPoint(x:0,y:rect.size.height))
+        path.close()
+        UIColor.black.setStroke()
+        path.stroke()
+        UIColor.cyan.setFill()
+        path.fill()
+    }
+}
+class TrangleView:UIView{  //从view中派生出自定义的View
+    override func draw(_ rect:CGRect){  //重写父类的draw方法
+        //        let firstpath = UIBezierPath(rect: rect)
+        
+        //创建一个UIBezierPath变量，用于画三角形
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: rect.size.width/2, y: 0)) //设置线段的起始点
+        path.addLine(to: CGPoint(x: rect.size.width, y: rect.size.height))//添加一条线段
+        path.addLine(to: CGPoint(x: 0, y: rect.size.height))//添加一条线段
+        UIColor.black.setStroke()
+        path.stroke()
+        UIColor.green.setFill()
+        path.fill()
+        
+        
+    }
+}
